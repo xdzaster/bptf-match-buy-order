@@ -1,6 +1,6 @@
 # Backpack.tf - Match Buy Order
 
-[![Version](https://img.shields.io/badge/Version-0.0.2-brightgreen.svg)](https://github.com/xdzaster/bptf-match-buy-order)
+[![Version](https://img.shields.io/badge/Version-0.0.3-brightgreen.svg)](https://github.com/xdzaster/bptf-match-buy-order)
 [![Author](https://img.shields.io/badge/Author-dzaster-blue.svg)](https://github.com/xdzaster)
 
 ### Overview

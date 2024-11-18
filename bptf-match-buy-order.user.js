@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Backpack.tf - Match Buy Order
 // @namespace    https://github.com/xdzaster
-// @version      0.0.2
+// @version      0.0.3
 // @description  Match any buy order with single click
 // @author       dzaster
 // @connect      backpack.tf
