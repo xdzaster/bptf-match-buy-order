@@ -240,7 +240,8 @@
             sheen: elem.getAttribute("data-sheen"),
             paint: elem.getAttribute('data-paint_name'),
             killstreaker: elem.getAttribute('data-killstreaker'),
-            sheen: elem.getAttribute('data-sheen')
+            sheen: elem.getAttribute('data-sheen'),
+            crate: elem.getAttribute('data-crate')
         };
     }
 
@@ -267,7 +268,8 @@
             part3,
             paint,
             killstreaker,
-            sheen
+            sheen,
+            crate
         } = listingData;
 
         if (SPELLS[spell1]) attributes.push(SPELLS[spell1]);
@@ -290,7 +292,7 @@
         if (PAINTS[paint]) attributes.push({ defindex: 142, float_value: PAINTS[paint] })
         if (KILLSTREAKERS[killstreaker]) attributes.push({ defindex: 2013, float_value: KILLSTREAKERS[killstreaker] })
         if (SHEENS[sheen]) attributes.push({ defindex: 2014, float_value: SHEENS[sheen] })
-
+        if (crate) attributes.push({ defindex: 187, float_value: parseInt(crate) })
         const data = {
             item: {
                 appid: 440,
@@ -487,7 +489,7 @@
                     submitBtn.removeAttribute('disabled')
                     const footerMessage = document.getElementById('footer-message')
                     if (footerMessage) {
-                        footerMessage.textContent = JSON.parse(response?.responseText).message;
+                        footerMessage.textContent = JSON.parse(response?.responseText)?.message;
                         footerMessage.style.color = 'red';
                     }
                     console.error(JSON.parse(response?.responseText).message);
