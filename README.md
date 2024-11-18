@@ -5,7 +5,7 @@
 
 ### Overview
 
-This userscript adds a convenient button on backpack.tf classified listings that allows users to match a buy order with a single click. It extracts item data, such as spells, parts, and other attributes, and creates a customized buy order. Ideal for TF2 traders looking to quickly set up buy orders with specific item attributes.
+This userscript adds a convenient button on backpack.tf classified listings that allows users to match a buy order with a single click. It extracts item data, such as spells, parts, and other attributes, and creates a customized buy order.
 
 ### Features
 ![image](https://github.com/xdzaster/bptf-match-buy-order/blob/main/images/button.PNG?raw=true)
@@ -29,6 +29,11 @@ This userscript adds a convenient button on backpack.tf classified listings that
    - View and adjust item details.
    - Specify desired spells, parts, currencies, and other attributes.
 4. Click "Create Listing" to submit your buy order.
+
+**⚠️ Important Notes:**
+ 
+- The newly created listing will only appear after refreshing the page.
+- Please **double-check** the listing after it's created. The script may have **unforeseen issues** that could result in incorrect listings.
 
 ### Dependencies
 
