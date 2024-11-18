@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Backpack.tf - Match Buy Order
 // @namespace    https://github.com/xdzaster
-// @version      0.0.1
+// @version      0.0.2
 // @description  Match any buy order with single click
 // @author       dzaster
 // @connect      backpack.tf
@@ -154,10 +154,65 @@
         "Player Hits": "94",
         Assists: "95",
     };
+    const PAINTS = {
+        "Indubitably Green": 7511618,
+        "Zepheniah's Greed": 4345659,
+        "Noble Hatter's Violet": 5322826,
+        "Color No. 216-190-216": 14204632,
+        "A Deep Commitment to Purple": 8208497,
+        "Mann Co. Orange": 13595446,
+        "Muskelmannbraun": 10843461,
+        "Peculiarly Drab Tincture": 12955537,
+        "Radigan Conagher Brown": 6901050,
+        "Ye Olde Rustic Colour": 8154199,
+        "Australium Gold": 15185211,
+        "Aged Moustache Grey": 8289918,
+        "An Extraordinary Abundance of Tinge": 15132390,
+        "A Distinctive Lack of Hue": 1315860,
+        "Team Spirit": 12073019,
+        "Pink as Hell": 16738740,
+        "A Color Similar to Slate": 3100495,
+        "Drably Olive": 8421376,
+        "The Bitter Taste of Defeat and Lime": 3329330,
+        "The Color of a Gentlemann's Business Pants": 15787660,
+        "Dark Salmon Injustice": 15308410,
+        "Operator's Overalls": 4732984,
+        "Waterlogged Lab Coat": 11049612,
+        "Balaclavas Are Forever": 3874595,
+        "An Air of Debonair": 6637376,
+        "The Value of Teamwork": 8400928,
+        "Cream Spirit": 12807213,
+        "A Mann's Mint": 12377523,
+        "After Eight": 2960676,
+        "Legacy Paint": 5801378
+    }
+    const KILLSTREAKERS = {
+        'Fire Horns': 2002,
+        'Cerebral Discharge': 2003,
+        'Tornado': 2004,
+        'Flames': 2005,
+        'Singularity': 2006,
+        'Incinerator': 2007,
+        'Hypno-Beam': 2008
+    }
+
+    const SHEENS = {
+        "Team Shine": 1,
+        "Deadly Daffodil": 2,
+        "Manndarin": 3,
+        "Mean Green": 4,
+        "Agonizing Emerald": 5,
+        "Villainous Violet": 6,
+        "Hot Rod": 7,
+    }
+
     const spellOptions = Object.keys(SPELLS);
     const partOptions = Object.keys(PARTS)
+
     function getDefaultValues(elem) {
+        console.log(elem);
         let skininfo = elem.querySelector(".item-icon");
+        console.log(skininfo);
         if (skininfo) {
             skininfo = skininfo.style.backgroundImage.match(
                 /warpaint\/[(?!_)\S]+_[0-9]+_[0-9]+_[0-9]+\.png/g
@@ -183,6 +238,9 @@
             tradable: elem.getAttribute("data-tradable") === "1",
             craftable: elem.getAttribute("data-craftable") === "1",
             sheen: elem.getAttribute("data-sheen"),
+            paint: elem.getAttribute('data-paint_name'),
+            killstreaker: elem.getAttribute('data-killstreaker'),
+            sheen: elem.getAttribute('data-sheen')
         };
     }
 
@@ -207,6 +265,9 @@
             part1,
             part2,
             part3,
+            paint,
+            killstreaker,
+            sheen
         } = listingData;
 
         if (SPELLS[spell1]) attributes.push(SPELLS[spell1]);
@@ -226,6 +287,9 @@
             attributes.push({ defindex: 382, float_value: parseInt(PARTS[part2]) });
         if (PARTS[part3])
             attributes.push({ defindex: 384, float_value: parseInt(PARTS[part3]) });
+        if (PAINTS[paint]) attributes.push({ defindex: 142, float_value: PAINTS[paint] })
+        if (KILLSTREAKERS[killstreaker]) attributes.push({ defindex: 2013, float_value: KILLSTREAKERS[killstreaker] })
+        if (SHEENS[sheen]) attributes.push({ defindex: 2014, float_value: SHEENS[sheen] })
 
         const data = {
             item: {
