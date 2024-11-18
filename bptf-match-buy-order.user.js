@@ -157,9 +157,7 @@
     const spellOptions = Object.keys(SPELLS);
     const partOptions = Object.keys(PARTS)
     function getDefaultValues(elem) {
-        console.log(elem);
         let skininfo = elem.querySelector(".item-icon");
-        console.log(skininfo);
         if (skininfo) {
             skininfo = skininfo.style.backgroundImage.match(
                 /warpaint\/[(?!_)\S]+_[0-9]+_[0-9]+_[0-9]+\.png/g
@@ -222,11 +220,11 @@
         if (festivized) attributes.push({ defindex: 2053 });
         if (paintkit) attributes.push({ defindex: 834, value: parseInt(paintkit) });
         if (wear) attributes.push({ defindex: 725, float_value: wear / 10 });
-        if (part1)
+        if (PARTS[part1])
             attributes.push({ defindex: 380, float_value: parseInt(PARTS[part1]) });
-        if (part2)
+        if (PARTS[part2])
             attributes.push({ defindex: 382, float_value: parseInt(PARTS[part2]) });
-        if (part3)
+        if (PARTS[part3])
             attributes.push({ defindex: 384, float_value: parseInt(PARTS[part3]) });
 
         const data = {
@@ -356,7 +354,7 @@
                     </div>
                     <div class='form-item'>
                         <label for="buyMetal">Buy Metal:</label> 
-                        <input type="number" id="buyMetal" value=${modalData.currencies.metal} name="buyMetal" min="0" step="0.01"> 
+                        <input type="number" id="buyMetal" value=${modalData.currencies.metal} name="buyMetal"  > 
                     </div>
                 </div>
                  
@@ -373,6 +371,7 @@
             <div class='modal-footer'> 
                 <button id="createListingBtn" type="submit" form="cloneData" class="btn btn-primary">Create Listing</button>
                 <button type="button" id="closeModalBtn" class='btn btn-default'>Close</button>
+                <p id='footer-message'></p>
             </div>
         `;
 
@@ -407,7 +406,6 @@
         listingData.part3 = formData.get("part3");
 
         const payload = getItemData(listingData);
-        console.log(payload);
         GM_xmlhttpRequest({
             method: "POST",
             url: `https://api.backpack.tf/api/v2/classifieds/listings`,
@@ -420,11 +418,22 @@
                 if (response.status === 201) {
                     closeModal();
                 } else {
-                    console.error(response);
+                    const submitBtn = document.getElementById('createListingBtn')
+                    submitBtn.innerHTML = 'Create Listing'
+                    submitBtn.removeAttribute('disabled')
+                    const footerMessage = document.getElementById('footer-message')
+                    if (footerMessage) {
+                        footerMessage.textContent = JSON.parse(response?.responseText).message;
+                        footerMessage.style.color = 'red';
+                    }
+                    console.error(JSON.parse(response?.responseText).message);
                 }
             },
-            onerror: function () {
-                console.error("Error while creating listing.");
+            onerror: function (response) {
+                const submitBtn = document.getElementById('createListingBtn')
+                submitBtn.innerHTML = 'Create Listing'
+                submitBtn.removeAttribute('disabled')
+                console.error("Error while creating listing.", response);
             },
         });
     }
