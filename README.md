@@ -30,10 +30,12 @@ This userscript adds a convenient button on backpack.tf classified listings that
    - Specify desired spells, parts, currencies, and other attributes.
 4. Click "Create Listing" to submit your buy order.
 
-**⚠️ Important Notes:**
- 
-- The newly created listing will only appear after refreshing the page.
-- Please **double-check** the listing after it's created. The script may have **unforeseen issues** that could result in incorrect listings.
+> [!IMPORTANT]
+> The newly created listing will only appear after refreshing the page.
+>
+> Please **double-check** the listing after it's created. The script may have **unforeseen issues** that could result in incorrect listings.
+>
+
 
 ### Dependencies
 
